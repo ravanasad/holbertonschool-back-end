@@ -1,17 +1,25 @@
 #!/usr/bin/python3
 """Gather data from an API"""
+import json
 import requests
 import sys
 
 
 if __name__ == "__main__":
-    API_URL = "https://jsonplaceholder.typicode.com"
-    userId = int(sys.argv[1])
-    user = requests.get("{}/users/{}".format(API_URL, userId)).json()
-
-    tasks = requests.get("{}/todos?userId={}".format(API_URL, userId)).json()
-    completed_tasks = [task for task in tasks if task.get("completed")]
-
-    print("Employee {} is done with tasks({}/{}):".format(
-        user.get("name"), len(completed_tasks), len(tasks)))
-    [print("\t {}".format(task.get("title"))) for task in completed_tasks]
+    if len(sys.argv) == 2:
+        res = requests.get('https://jsonplaceholder.typicode.com/users/' +
+                           f'{sys.argv[1]}/todos')
+    response = json.loads(res.text)
+    all_task = len(response)
+    done_task = 0
+    done_task_title = ""
+    for task in response:
+        if task["completed"] is True:
+            done_task_title += "\t " + task["title"] + "\n"
+            done_task = done_task + 1
+    user = requests.get('https://jsonplaceholder.typicode.com/users/' +
+                        f'{sys.argv[1]}')
+    user_response = json.loads(user.text)
+    user_name = user_response["name"]
+    print(f"Employee {user_name} is done with tasks({done_task}/{all_task}):")
+    print(done_task_title, end="")
