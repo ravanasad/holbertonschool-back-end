@@ -17,7 +17,7 @@ if __name__ == "__main__":
                 "task": task.get("title"),
                 "completed": task.get("completed"),
                 "username": user.get("username")
-                } for task in tasks]
+                } for task in user_tasks]
 
     with open("todo_all_employees.json", 'w') as jsonfile:
         json.dump(dictionary, jsonfile)
