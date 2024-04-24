@@ -1,14 +1,12 @@
 #!/usr/bin/python3
+"""Export data in the CSV format."""
+import csv
 import requests
 import sys
-import csv
-import urllib
-
-
-API_URL = "https://jsonplaceholder.typicode.com"
 
 
 if __name__ == "__main__":
+    API_URL = "https://jsonplaceholder.typicode.com"
     if len(sys.argv) != 2:
         print("Usage: {} employee_id".format(sys.argv[0]))
         exit(1)

@@ -1,20 +1,11 @@
 #!/usr/bin/python3
-import requests
-import sys
-import csv
-import urllib
+"""export data in the json format."""
 import json
-
-
-API_URL = "https://jsonplaceholder.typicode.com"
-
-
-def a(tasks, id):
-    user_tasks = [task for task in tasks if task['id'] == id]
-    return user_tasks
+import requests
 
 
 if __name__ == "__main__":
+    API_URL = "https://jsonplaceholder.typicode.com"
     users = requests.get("{}/users".format(API_URL)).json()
     tasks = requests.get("{}/todos".format(API_URL)).json()
     dictionary = {}
